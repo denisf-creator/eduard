@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-bg-deep: #0B0A12;
+  --color-bg-card: #151421;
+  --color-accent-primary: #8B5CF6;
+  --color-accent-secondary: #A78BFA;
+  --color-text-main: #F3F4F6;
+  --color-text-dim: #9CA3AF;
+  --color-glass: rgba(139, 92, 246, 0.1);
+  --color-border-accent: rgba(139, 92, 246, 0.2);
+}
+
+@layer base {
+  body {
+    @apply bg-bg-deep text-text-main font-sans antialiased selection:bg-accent-primary/30;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-glass backdrop-blur-xl border border-border-accent;
+  }
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent-primary to-accent-secondary;
+  }
+
+  .btn-primary {
+    @apply bg-accent-primary hover:bg-accent-primary/90 text-white font-semibold transition-all active:scale-95;
+  }
+
+  .card-sophisticated {
+    @apply bg-bg-card border border-border-accent rounded-xl shadow-xl;
+  }
+}
+
