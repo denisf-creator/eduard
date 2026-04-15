@@ -90,7 +90,19 @@ const Header = ({ onDownload }: { onDownload: () => void }) => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? 'bg-bg-deep/90 backdrop-blur-md py-3 border-b border-border-accent' : 'bg-transparent py-6'}`}>
       <div className="container mx-auto px-10 flex items-center justify-between">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
+          <motion.img 
+            src="/logo.png" 
+            alt="XENO Logo" 
+            className="w-10 h-10 object-contain"
+            initial={{ rotate: -10 }}
+            animate={{ rotate: 0 }}
+            whileHover={{ rotate: 10, scale: 1.1 }}
+            onError={(e) => {
+              // Fallback if logo.png is not found
+              (e.target as HTMLImageElement).style.display = 'none';
+            }}
+          />
           <span className="text-2xl font-black tracking-[2px] text-accent-primary">XENO</span>
         </div>
         
@@ -106,12 +118,14 @@ const Header = ({ onDownload }: { onDownload: () => void }) => {
           ))}
         </nav>
 
-        <button 
-          onClick={onDownload}
-          className="btn-primary px-6 py-2.5 rounded-md text-sm shadow-lg shadow-accent-primary/20"
+        <a 
+          href="/Xeno.exe"
+          download
+          className="btn-primary px-6 py-2.5 rounded-md text-sm shadow-lg shadow-accent-primary/20 flex items-center gap-2"
         >
-          Download Now
-        </button>
+          <Download size={16} />
+          Direct Download
+        </a>
       </div>
     </header>
   );
@@ -152,12 +166,14 @@ const Hero = ({ onDownload }: { onDownload: () => void }) => {
           </div>
 
           <div className="flex flex-wrap gap-4">
-            <button 
-              onClick={onDownload}
-              className="btn-primary px-8 py-4 rounded-lg font-bold text-lg shadow-xl shadow-accent-primary/30"
+            <a 
+              href="/Xeno.exe"
+              download
+              className="btn-primary px-8 py-4 rounded-lg font-bold text-lg shadow-xl shadow-accent-primary/30 flex items-center gap-3"
             >
-              Download Now
-            </button>
+              <Download size={24} />
+              Direct Download
+            </a>
           </div>
         </motion.div>
 
@@ -379,7 +395,11 @@ const DownloadModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
               <p className="text-text-dim mb-8">Choose your preferred download method to get started.</p>
               
               <div className="space-y-4">
-                <button className="w-full p-6 rounded-xl bg-white/5 border border-border-accent hover:border-accent-primary/50 hover:bg-white/10 transition-all text-left flex items-center gap-6 group">
+                <a 
+                  href="/Xeno.exe"
+                  download
+                  className="w-full p-6 rounded-xl bg-white/5 border border-border-accent hover:border-accent-primary/50 hover:bg-white/10 transition-all text-left flex items-center gap-6 group"
+                >
                   <div className="w-12 h-12 bg-accent-primary/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Download className="text-accent-primary" size={24} />
                   </div>
@@ -387,7 +407,7 @@ const DownloadModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
                     <div className="font-bold text-lg">Direct Download</div>
                     <div className="text-sm text-text-dim">Fastest method, no ads.</div>
                   </div>
-                </button>
+                </a>
               </div>
               
               <div className="mt-8 flex items-center gap-2 text-xs text-text-dim font-bold uppercase tracking-widest">
