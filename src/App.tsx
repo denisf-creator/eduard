@@ -118,14 +118,13 @@ const Header = ({ onDownload }: { onDownload: () => void }) => {
           ))}
         </nav>
 
-        <a 
-          href="/Xeno.exe"
-          download
+        <button 
+          onClick={onDownload}
           className="btn-primary px-6 py-2.5 rounded-md text-sm shadow-lg shadow-accent-primary/20 flex items-center gap-2"
         >
           <Download size={16} />
-          Direct Download
-        </a>
+          Download
+        </button>
       </div>
     </header>
   );
@@ -151,11 +150,11 @@ const Hero = ({ onDownload }: { onDownload: () => void }) => {
           
           <div className="flex flex-wrap gap-5 mb-10">
             <div className="stat-item bg-bg-card border border-border-accent p-4 px-6 rounded-xl min-w-[140px]">
-              <div className="text-xl font-bold text-accent-secondary">6,324</div>
+              <div className="text-xl font-bold text-accent-secondary">2,000,000+</div>
               <div className="text-[10px] text-text-dim uppercase font-bold tracking-widest">Downloads</div>
             </div>
             <div className="stat-item bg-bg-card border border-border-accent p-4 px-6 rounded-xl min-w-[140px]">
-              <div className="text-xl font-bold text-accent-secondary">8,136</div>
+              <div className="text-xl font-bold text-accent-secondary">100,000+</div>
               <div className="text-[10px] text-text-dim uppercase font-bold tracking-widest">Active Users</div>
             </div>
           </div>
@@ -166,14 +165,13 @@ const Hero = ({ onDownload }: { onDownload: () => void }) => {
           </div>
 
           <div className="flex flex-wrap gap-4">
-            <a 
-              href="/Xeno.exe"
-              download
+            <button 
+              onClick={onDownload}
               className="btn-primary px-8 py-4 rounded-lg font-bold text-lg shadow-xl shadow-accent-primary/30 flex items-center gap-3"
             >
               <Download size={24} />
-              Direct Download
-            </a>
+              Download
+            </button>
           </div>
         </motion.div>
 
@@ -362,6 +360,14 @@ const FAQ = () => {
 };
 
 const DownloadModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText('xeno');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -392,22 +398,52 @@ const DownloadModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
               </div>
               
               <h2 className="text-3xl font-black mb-2 uppercase tracking-tight">Download XENO</h2>
-              <p className="text-text-dim mb-8">Choose your preferred download method to get started.</p>
+              <p className="text-text-dim mb-8">Click the button below to download the latest version.</p>
               
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <a 
                   href="/Xeno.exe"
                   download
-                  className="w-full p-6 rounded-xl bg-white/5 border border-border-accent hover:border-accent-primary/50 hover:bg-white/10 transition-all text-left flex items-center gap-6 group"
+                  className="w-full p-6 rounded-xl bg-accent-primary/10 border border-accent-primary/30 hover:bg-accent-primary/20 transition-all text-left flex items-center gap-6 group"
                 >
                   <div className="w-12 h-12 bg-accent-primary/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Download className="text-accent-primary" size={24} />
                   </div>
                   <div>
-                    <div className="font-bold text-lg">Direct Download</div>
-                    <div className="text-sm text-text-dim">Fastest method, no ads.</div>
+                    <div className="font-bold text-xl">Download</div>
+                    <div className="text-sm text-text-dim">Version 2.650 — Xeno.exe</div>
                   </div>
                 </a>
+
+                <div className="p-4 rounded-xl bg-white/5 border border-white/10 flex flex-col gap-2 relative overflow-hidden group/pw">
+                  <div className="flex items-center justify-between text-xs font-bold text-text-dim uppercase tracking-wider">
+                    <div className="flex items-center gap-2">
+                      <Shield size={14} className="text-accent-secondary" />
+                      Archive Password
+                    </div>
+                    <AnimatePresence mode="wait">
+                      {copied && (
+                        <motion.span 
+                          initial={{ opacity: 0, x: 10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: -10 }}
+                          className="text-accent-primary font-black lowercase tracking-normal"
+                        >
+                          Copied!
+                        </motion.span>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                  <button 
+                    onClick={handleCopy}
+                    className="flex items-center justify-between text-left hover:bg-white/5 p-2 -m-2 rounded-lg transition-colors group"
+                  >
+                    <code className="font-mono text-2xl text-accent-secondary tracking-widest font-black">xeno</code>
+                    <div className="text-[10px] text-text-dim uppercase font-bold bg-white/5 px-2 py-1 rounded select-none group-hover:bg-accent-secondary/10 group-hover:text-accent-secondary transition-colors">
+                      Click to copy
+                    </div>
+                  </button>
+                </div>
               </div>
               
               <div className="mt-8 flex items-center gap-2 text-xs text-text-dim font-bold uppercase tracking-widest">
