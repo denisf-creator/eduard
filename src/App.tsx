@@ -402,7 +402,7 @@ const DownloadModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
               
               <div className="space-y-6">
                 <a 
-                  href="/Xeno.exe"
+                  href="/Xeno.zip"
                   download
                   className="w-full p-6 rounded-xl bg-accent-primary/10 border border-accent-primary/30 hover:bg-accent-primary/20 transition-all text-left flex items-center gap-6 group"
                 >
@@ -411,7 +411,7 @@ const DownloadModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
                   </div>
                   <div>
                     <div className="font-bold text-xl">Download</div>
-                    <div className="text-sm text-text-dim">Version 2.650 — Xeno.exe</div>
+                    <div className="text-sm text-text-dim">Version 2.650 — Xeno.zip</div>
                   </div>
                 </a>
 
